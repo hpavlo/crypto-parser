@@ -51,8 +51,8 @@ public class RequestApiServiceImpl implements RequestApiService {
 
     private boolean isTheLastPriceInDb(Price price) {
         Optional<Price> priceFromDb = priceRepository
-                .findFirstByFirstCurrencyAndSecondCurrencyOrderByTimeDesc
-                        (price.getFirstCurrency(), price.getSecondCurrency());
+                .findFirstByFirstCurrencyAndSecondCurrencyOrderByTimeDesc(
+                        price.getFirstCurrency(), price.getSecondCurrency());
         return priceFromDb.filter(dbPrice ->
                 price.getLastPrice().equals(dbPrice.getLastPrice()))
                 .isPresent();
