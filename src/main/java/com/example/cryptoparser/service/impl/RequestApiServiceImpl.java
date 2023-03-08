@@ -59,7 +59,7 @@ public class RequestApiServiceImpl implements RequestApiService {
     }
 
     @PostConstruct
-    private void generateCexioService() {
+    public void generateCexioService() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(externalApiUrl)
                 .addConverterFactory(GsonConverterFactory.create())
