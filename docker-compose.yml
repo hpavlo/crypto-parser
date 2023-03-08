@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  mongo_db:
+    image: mongo:latest
+    container_name: mongo_db
+    env_file:
+      - ./.env
+    ports:
+      - $MONGODB_LOCAL_PORT:$MONGODB_DOCKER_PORT
+  app:
+    depends_on:
+      - mongo_db
+    build: .
+    image: pavlogook/mongodb
+    env_file:
+      - ./.env
+    environment:
+      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=$MONGODB_DATABASE
+      - SPRING_DATA_MONGODB_DATABASE=$MONGODB_DATABASE
+      - SPRING_DATA_MONGODB_PORT=$MONGODB_DOCKER_PORT
+      - SPRING_DATA_MONGODB_HOST=mongo_db
+    ports:
+      - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
+    links:
+      - mongo_db
